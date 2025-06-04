@@ -326,7 +326,6 @@
 
 /* Show resize cursor on active window resizing */
 :host([active][resizing]) {
-  transition: none !important;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
   will-change: width, height;
 }
@@ -359,5 +358,5 @@
 
 :host(:not(.cdk-drag-dragging)),
 :host(:not([resizing])) {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: none !important;
 }
