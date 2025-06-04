@@ -335,11 +335,6 @@
   will-change: width, height;
 }
 
-:host([resizing]) .window-content,
-:host(.cdk-drag-dragging) .window-content {
-  pointer-events: none; /* Prevent interaction during resize */
-}
-
 :host[resizing] .resize-handle::after {
   border-right: 2px solid var(--window-active-border);
   border-bottom: 2px solid var(--window-active-border);
@@ -356,10 +351,12 @@
   flex: 1;
 }
 
-:host(:not([active])) .window-content {
-  pointer-events: none;
-}
-
 :host([active]) .window-content {
   pointer-events: auto;
+}
+
+:host(:not([active])) .window-content,
+:host(.cdk-drag-dragging) .window-content,
+:host([resizing]) .window-content {
+  pointer-events: none;
 }
