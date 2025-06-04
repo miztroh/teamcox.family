@@ -1,0 +1,365 @@
+/* Host element styles - this is the os-window component itself */
+:host {
+  position: absolute;
+  z-index: 1; /* Ensures windows appear above desktop icons which have z-index 0 */
+  display: flex;
+  flex-direction: column;
+  width: 800px;
+  height: 500px;
+  border: 1px solid var(--window-border);
+  color: var(--text-color);
+  background: var(--window-inactive-background);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px var(--window-shadow);
+  overflow: hidden;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  opacity: 1;
+  pointer-events: all;
+}
+
+:host(:not(.cdk-drag-dragging)) {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Maximizing animation */
+:host([maximizing]) {
+  pointer-events: none;
+  z-index: 100 !important;
+  will-change: transform, width, height, top, left, border-radius;
+}
+
+:host([maximizing]) {
+  /* Reset any CDK drag transforms */
+  transform: none;
+}
+
+:host([maximized]) {
+  left: 0 !important;
+  top: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 0 !important;
+}
+
+:host([active]) {
+  z-index: 10;
+  border: 1px solid var(--window-active-border);
+  box-shadow: 0 10px 25px var(--window-shadow);
+  color: var(--text-color);
+  background: var(--window-background);
+  opacity: 1;
+}
+
+/* Simple animation styles - actual animation will be done in JS */
+:host([minimizing]),
+:host([restoringUp]) {
+  pointer-events: none;
+  transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 300ms cubic-bezier(0.4, 0, 0.2, 1) !important;
+  transform-origin: center center !important;
+  display: flex !important;
+  z-index: 100 !important;
+  will-change: transform, opacity;
+}
+
+/* Apply a clean transform during minimize/restore animations */
+:host([minimizing]),
+:host([restoringUp]) {
+  /* Reset any CDK drag transforms */
+  transform: none;
+}
+
+/* Minimizing animation */
+:host([minimizing]) {
+  transform: scale(0.8);
+  opacity: 0;
+}
+
+/* Restoring animation */
+:host([restoringUp]) {
+  transform: scale(0.8);
+  opacity: 0;
+}
+
+:host([restoringDown]) {
+  transform: scale(0.8);
+}
+
+:host([minimized]) {
+  transform: scale(0.8);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* When restoring, animate from minimized state back to normal */
+:host([restoringUp][minimized]) {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* Titlebar styles */
+.titlebar {
+  width: 100%;
+  height: 32px;
+  background-color: var(--titlebar-background);
+  border-radius: 8px 8px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+  flex-shrink: 0;
+  color: var(--text-tertiary-color);
+  transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Help titlebar stand out at viewport edges */
+  box-shadow: 0 1px 3px var(--window-shadow);
+}
+
+/* When window is active, make titlebar more prominent */
+:host([active]) .titlebar {
+  background-color: var(--titlebar-active-background);
+  color: var(--text-color);
+  box-shadow: 0 1px 4px var(--window-shadow);
+}
+
+:host([maximized]) .titlebar {
+  border-radius: 0;
+  box-shadow: 0 1px 2px var(--window-shadow);
+  background-color: var(--maximized-titlebar-background);
+}
+
+:host([maximized][active]) .titlebar {
+  background-color: var(--maximized-titlebar-active-background);
+}
+
+.window-content {
+  flex: 1;
+  overflow: auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  box-sizing: border-box;
+  width: 100%;
+  height: calc(100% - 32px); /* Subtract titlebar height */
+  background-color: var(--window-content-background);
+  border-top: 1px solid var(--window-content-border);
+  transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+:host(:not([active])) .window-content {
+  pointer-events: none;
+}
+
+:host([active]) .window-content {
+  pointer-events: auto;
+}
+
+:host([active]) .window-content {
+  background-color: var(--window-background);
+}
+
+/* Window title draggable area */
+.window-title {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  cursor: pointer;
+  padding-left: 12px;
+  font-weight: 400;
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--text-tertiary-color);
+  transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    cursor 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+}
+
+:host(.cdk-drag-dragging) .window-title {
+  cursor: grabbing;
+}
+
+/* Remove move cursor when window is maximized */
+:host([maximized]) .window-title {
+  cursor: default;
+}
+
+.window-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.window-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+:host([active]) .window-title {
+  color: var(--text-color);
+}
+
+.window-controls {
+  display: flex;
+  align-items: center;
+  gap: 0; /* Remove gap between buttons */
+  padding: 0;
+  margin: 0;
+  height: 100%;
+}
+
+.control-button {
+  width: 46px;
+  height: 100%; /* Fill the titlebar height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.control-button:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.control-button.close {
+  border-top-right-radius: 7px;
+}
+
+:host([maximized]) .control-button.close {
+  border-radius: 0;
+}
+
+.control-button img {
+  width: 18px;
+  height: 18px;
+}
+
+.control-button.close:hover {
+  background-color: var(--danger-color);
+  color: white;
+}
+
+.control-button.close:active {
+  background-color: var(--danger-active-color);
+  transform: scale(0.9);
+}
+
+/* Additional dark mode styling for close button */
+[data-theme="dark"] .control-button.close:hover,
+.dark-theme .control-button.close:hover {
+  background-color: var(--danger-color);
+  color: white;
+  box-shadow: 0 0 8px rgba(255, 54, 54, 0.4);
+}
+
+[data-theme="dark"] .control-button.close:active,
+.dark-theme .control-button.close:active {
+  background-color: var(--danger-active-color);
+  transform: scale(0.9);
+  box-shadow: 0 0 4px rgba(255, 54, 54, 0.3);
+}
+
+/* Create the restore button icon using CSS rather than a special character */
+.restore {
+  position: relative;
+}
+
+/* Resize handle */
+.resize-handle {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 16px;
+  height: 16px;
+  cursor: nwse-resize;
+  background: transparent;
+  z-index: 100;
+  opacity: 0.6;
+  transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+:host([active]) .resize-handle {
+  opacity: 1;
+}
+
+:host([maximized]) .resize-handle {
+  display: none;
+}
+
+.resize-handle::after {
+  content: "";
+  position: absolute;
+  right: 3px;
+  bottom: 3px;
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid var(--window-content-border);
+  border-bottom: 2px solid var(--window-content-border);
+  transition: border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+:host([active]) .resize-handle::after {
+  border-right: 2px solid var(--text-secondary-color);
+  border-bottom: 2px solid var(--text-secondary-color);
+}
+
+/* Enhanced resizing - add hover effects */
+.resize-handle:hover {
+  opacity: 1;
+}
+
+.resize-handle:hover::after {
+  border-right: 2px solid var(--window-active-border);
+  border-bottom: 2px solid var(--window-active-border);
+}
+
+:host([active]) .resize-handle:hover::after {
+  border-right: 2px solid var(--text-color);
+  border-bottom: 2px solid var(--text-color);
+}
+
+/* Show resize cursor on active window resizing */
+:host([active][resizing]) {
+  transition: none !important;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  will-change: width, height;
+}
+
+:host([resizing]) .window-content,
+:host(.cdk-drag-dragging) .window-content {
+  pointer-events: none; /* Prevent interaction during resize */
+}
+
+:host[resizing] .resize-handle::after {
+  border-right: 2px solid var(--window-active-border);
+  border-bottom: 2px solid var(--window-active-border);
+}
+
+.os-window {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.window-content {
+  flex: 1;
+}
+
+:host(:not([active])) .window-content {
+  pointer-events: none;
+}
+
+:host([active]) .window-content {
+  pointer-events: auto;
+}

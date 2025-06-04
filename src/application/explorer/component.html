@@ -1,0 +1,38 @@
+<ng-template #window let-win let-dragBoundary="dragBoundary">
+  <os-window [model]="win" [dragBoundary]="dragBoundary">
+    <img window-icon [src]="win.icon()" alt="Explorer" />
+    <div>Explorer content goes here</div>
+  </os-window>
+</ng-template>
+
+<ng-template #desktopIcon let-dragBoundary="dragBoundary">
+  <ng-container *ngFor="let icon of desktopIcons()">
+    <os-desktop-icon
+      [model]="icon"
+      [dragBoundary]="dragBoundary"
+      (dblclick)="onDesktopIconDblClick()"
+    ></os-desktop-icon>
+  </ng-container>
+</ng-template>
+
+<ng-template #taskbarIcon>
+  <os-taskbar-icon
+    [icon]="icon()"
+    [label]="title()"
+    *ngIf="windows().length > 0"
+    (click)="onTaskbarIconLeftClick($event)"
+    (contextmenu)="onTaskbarIconContextMenu($event)"
+  ></os-taskbar-icon>
+</ng-template>
+
+<ng-template #leftClickMenu>
+  <ng-container *ngIf="leftClickMenuModel as model">
+    <os-menu [model]="model"></os-menu>
+  </ng-container>
+</ng-template>
+
+<ng-template #rightClickMenu>
+  <ng-container *ngIf="rightClickMenuModel as model">
+    <os-menu [model]="model"></os-menu>
+  </ng-container>
+</ng-template>

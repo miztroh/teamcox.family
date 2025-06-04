@@ -1,0 +1,94 @@
+/* Theme CSS Variables */
+
+:root {
+  /* Light theme (default) */
+  --background-color: #f2f2f2;
+  --window-background: #ffffff;
+  --window-inactive-background: #fafafa;
+  --taskbar-background: rgba(243, 243, 243, 0.85);
+  --taskbar-border-color: #888;
+  --titlebar-background: #fafafa;
+  --titlebar-active-background: #ffffff;
+  --window-border: #888;
+  --window-active-border: #0078d4;
+  --window-shadow: rgba(0, 0, 0, 0.1);
+  --icon-shadow: rgba(0, 0, 0, 0.45);
+  --icon-shadow-hover: rgba(0, 0, 0, 0.5);
+  --text-shadow-color: #ffffff;
+  --text-color: #333333;
+  --text-secondary-color: #666666;
+  --text-tertiary-color: #777777;
+  --accent-color: #0078d4;
+  --accent-hover-color: #106ebe;
+  --accent-active-color: #005a9e;
+  --danger-color: #d32f2f;
+  --danger-hover-color: rgba(211, 47, 47, 0.1);
+  --danger-active-color: rgba(211, 47, 47, 0.2);
+  --icon-color: #555555;
+  --preview-panel-background: rgba(255, 255, 255, 0.95);
+  --preview-header-background: rgba(245, 245, 245, 0.9);
+  --preview-group-background: rgba(245, 245, 245, 0.6);
+  --preview-border-color: rgba(0, 0, 0, 0.08);
+  --hover-background: rgba(0, 0, 0, 0.05);
+  --active-background: rgba(0, 0, 0, 0.1);
+  --window-content-background: #f9f9f9;
+  --window-content-border: #e0e0e0;
+  --indicator-inactive: #aaaaaa;
+  --control-hover-background: rgba(0, 0, 0, 0.1);
+  --control-active-background: rgba(0, 0, 0, 0.15);
+  --maximized-titlebar-background: #f5f5f5;
+  --maximized-titlebar-active-background: #f9f9f9;
+  --backdrop-filter: blur(20px);
+}
+
+/* Dark theme variables */
+.dark-theme,
+[data-theme="dark"] {
+  --background-color: #1e1e1e;
+  --window-background: #111111;
+  --window-inactive-background: #3d3d3d;
+  --taskbar-background: rgba(40, 40, 40, 0.85);
+  --taskbar-border-color: #444;
+  --titlebar-background: #3d3d3d;
+  --titlebar-active-background: #1a1a1a;
+  --window-border: #222222;
+  --window-active-border: #0078d4;
+  --window-shadow: rgba(0, 0, 0, 0.3);
+  --icon-shadow: rgba(255, 255, 255, 0.25);
+  --icon-shadow-hover: rgba(255, 255, 255, 0.3);
+  --text-shadow-color: #000000;
+  --text-color: #f0f0f0;
+  --text-secondary-color: #cccccc;
+  --text-tertiary-color: #aaaaaa;
+  --accent-color: #0078d4;
+  --accent-hover-color: #2b8dd6;
+  --accent-active-color: #4ca0db;
+  --danger-color: #ff3636;
+  --danger-hover-color: rgba(255, 54, 54, 0.2);
+  --danger-active-color: rgba(255, 54, 54, 0.3);
+  --icon-color: #bbbbbb;
+  --preview-panel-background: rgba(45, 45, 45, 0.95);
+  --preview-header-background: rgba(35, 35, 35, 0.9);
+  --preview-group-background: rgba(35, 35, 35, 0.6);
+  --preview-border-color: rgba(255, 255, 255, 0.08);
+  --hover-background: rgba(255, 255, 255, 0.05);
+  --active-background: rgba(255, 255, 255, 0.1);
+  --window-content-background: #3d3d3d;
+  --window-content-border: #222222;
+  --indicator-inactive: #666666;
+  --control-hover-background: rgba(255, 255, 255, 0.1);
+  --control-active-background: rgba(255, 255, 255, 0.15);
+  --maximized-titlebar-background: #3d3d3d;
+  --maximized-titlebar-active-background: #1a1a1a;
+  --backdrop-filter: blur(20px) brightness(0.8);
+}
+
+/* Apply theme transitions for smooth theme switching */
+body {
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+* {
+  transition: color 0.3s ease, background-color 0.3s ease,
+    border-color 0.3s ease, box-shadow 0.3s ease;
+}

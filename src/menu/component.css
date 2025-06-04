@@ -1,0 +1,110 @@
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  position: absolute;
+}
+
+.context-menu {
+  position: absolute;
+  width: 220px;
+  max-height: 300px;
+  overflow-y: auto;
+  background-color: var(--preview-panel-background, #fff);
+  border: 1px solid var(--window-border, #d0d0d0);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px var(--window-shadow, rgba(0, 0, 0, 0.12));
+  z-index: 1000;
+  animation: menu-appear 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+  padding: 6px 0;
+  font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+  pointer-events: auto;
+}
+@keyframes menu-appear {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  color: var(--text-color, #222);
+  font-size: 13px;
+  position: relative;
+  margin: 2px 4px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  background: none;
+}
+.menu-item:hover {
+  background-color: var(--hover-background, #f0f0f0);
+  border-color: var(--window-active-border, #0078d4);
+  box-shadow: 0 2px 4px var(--window-shadow, rgba(0, 0, 0, 0.12));
+}
+.menu-item:active {
+  background-color: var(--active-background, #e0e0e0);
+  transform: scale(0.98);
+  box-shadow: 0 1px 2px var(--window-shadow, rgba(0, 0, 0, 0.12));
+  border-color: var(--window-active-border, #0078d4);
+}
+.menu-item.disabled {
+  opacity: 0.5;
+  cursor: default;
+  pointer-events: none;
+}
+.menu-icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-color, #222);
+  transition: color 0.2s ease;
+  flex-shrink: 0;
+}
+.divider {
+  height: 1px;
+  background-color: #b0b0b0;
+  margin: 6px 8px;
+  opacity: 0.9;
+}
+.menu-title {
+  padding: 8px 12px;
+  font-weight: 500;
+  color: var(--text-color, #222);
+  font-size: 13px;
+  text-align: center;
+  opacity: 0.9;
+}
+.shortcut {
+  margin-left: auto;
+  font-size: 11px;
+  padding-left: 10px;
+  opacity: 0.7;
+}
+.menu-icon svg {
+  display: block;
+  margin: 0;
+}
+.context-menu,
+.menu-item,
+.menu-title {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+:host {
+  z-index: 1000;
+}

@@ -1,0 +1,39 @@
+<div class="os-window">
+  <div class="titlebar">
+    <div class="window-title" cdkDragHandle>
+      <div class="window-icon">
+        <ng-content select="[window-icon]"></ng-content>
+      </div>
+      {{ model.title() }}
+    </div>
+    <div class="window-controls">
+      <button class="control-button minimize" (click)="onMinimizeClick($event)">
+        <img
+          [src]="themeService.activeTheme() === 'dark' ? '/minimize-dark.svg' : '/minimize-light.svg'"
+          alt="Minimize"
+        />
+      </button>
+      <button
+        class="control-button"
+        [class.maximize]="!model.maximized()"
+        [class.restore]="model.maximized()"
+        (click)="onMaximizeClick($event)"
+      >
+        <img
+          [src]="model.maximized() ? (themeService.activeTheme() === 'dark' ? '/restore-dark.svg' : '/restore-light.svg') : (themeService.activeTheme() === 'dark' ? '/maximize-dark.svg' : '/maximize-light.svg')"
+          alt="Maximize/Restore"
+        />
+      </button>
+      <button class="control-button close" (click)="onCloseClick($event)">
+        <img
+          [src]="themeService.activeTheme() === 'dark' ? '/close-dark.svg' : '/close-light.svg'"
+          alt="Close"
+        />
+      </button>
+    </div>
+  </div>
+  <div class="window-content">
+    <ng-content></ng-content>
+  </div>
+  <div class="resize-handle" (mousedown)="onResizeStart($event)"></div>
+</div>

@@ -1,0 +1,50 @@
+<div
+  id="desktop"
+  (contextmenu)="onRightClick($event)"
+  (click)="onLeftClick($event)"
+>
+  <div
+    id="icons"
+    #icons
+    (desktop-icon-drag-end)="onDesktopIconDragEnd($any($event).detail)"
+    (desktop-icon-context-menu)="onDesktopIconContextMenu($any($event).detail)"
+    (desktop-icon-activate)="onDesktopIconActivate($any($event).detail)"
+  >
+    <ng-container *ngFor="let app of appRefs">
+      <ng-container
+        *ngTemplateOutlet="app.desktopIconTemplate; context: { dragBoundary: icons }"
+      ></ng-container>
+    </ng-container>
+  </div>
+  <div id="apps" style="display: none">
+    <ng-template #appsContainerView></ng-template>
+  </div>
+  <div
+    id="windows"
+    #windows
+    (window-activate)="onWindowActivate($any($event).detail)"
+  >
+    <ng-container *ngFor="let app of appRefs">
+      <ng-container *ngFor="let win of app.windows()">
+        <ng-container
+          *ngTemplateOutlet="app.windowTemplate; context: { $implicit: win, dragBoundary: windows }"
+        ></ng-container>
+      </ng-container>
+      <ng-container
+        *ngTemplateOutlet="app.leftClickMenuTemplate"
+      ></ng-container>
+      <ng-container
+        *ngTemplateOutlet="app.rightClickMenuTemplate"
+      ></ng-container>
+    </ng-container>
+  </div>
+  <os-menu [model]="rightClickMenuModel"></os-menu>
+</div>
+<os-taskbar
+  (contextmenu)="onTaskbarContextMenu($event)"
+  (click)="onTaskbarClick($event)"
+>
+  <ng-container *ngFor="let app of appRefs">
+    <ng-container *ngTemplateOutlet="app.taskbarIconTemplate"></ng-container>
+  </ng-container>
+</os-taskbar>
