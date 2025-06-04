@@ -27,6 +27,7 @@
     *ngIf="windows().length > 0"
     (click)="onTaskbarIconLeftClick($event)"
     (contextmenu)="onTaskbarIconContextMenu($event)"
+    [attr.title]="title()"
   ></os-taskbar-icon>
 </ng-template>
 
